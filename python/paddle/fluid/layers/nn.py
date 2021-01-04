@@ -12575,14 +12575,6 @@ def transformer(from_tensor,
                 hidden_act,
                 param_attrs_dict
                 ):
-deprecated(since="2.0.0", nsformer(from_tensor,
-                to_tensor,
-                attr_mask,
-                head_num,
-                size_per_head,
-                hidden_act,
-                param_attrs_dict
-                ):
   helper = LayerHelper('transformer', **locals())
   dtype = helper.input_dtype('from_tensor')
   hidden_dim = head_num * size_per_head
@@ -12665,6 +12657,7 @@ deprecated(since="2.0.0", nsformer(from_tensor,
   )
   return output
 
+@deprecated(since="2.0.0", update_to="paddle.nn.functional.maxout")
 @templatedoc()
 def maxout(x, groups, name=None, axis=1):
     """
