@@ -159,6 +159,7 @@ __all__ = [
     'clip_by_norm',
     'mean',
     'mul',
+    'transformer_op',
     'maxout',
     'space_to_depth',
     'affine_grid',
@@ -12566,8 +12567,104 @@ def mul(x, y, x_num_col_dims=1, y_num_col_dims=1, name=None):
                             "Y": y}, attrs=attrs, outputs={"Out": out})
     return out
 
+def transformer(from_tensor,
+                to_tensor,
+                attr_mask,
+                head_num,
+                size_per_head,
+                hidden_act,
+                param_attrs_dict
+                ):
+deprecated(since="2.0.0", nsformer(from_tensor,
+                to_tensor,
+                attr_mask,
+                head_num,
+                size_per_head,
+                hidden_act,
+                param_attrs_dict
+                ):
+  helper = LayerHelper('transformer', **locals())
+  dtype = helper.input_dtype('from_tensor')
+  hidden_dim = head_num * size_per_head
+  attr_kernel_shape = [hidden_dim, hidden_dim]
+  attr_bias_shape = [hidden_dim]
+  attr_output_kernel_shape = [hidden_dim, hidden_dim]
+  attr_output_bias_shape = [hidden_dim]
+  attr_output_layernorm_beta_shape = [hidden_dim]
+  attr_output_layernorm_gamma_shape = [hidden_dim]
+  inter_kernel_shape = [hidden_dim, hidden_dim * 4]
+  inter_bias_shape = [hidden_dim * 4]
+  output_kernel_shape = [hidden_dim * 4, hidden_dim]
+  output_bias_shape = [hidden_dim]
+  output_layernorm_beta_shape = [hidden_dim]
+  output_layernorm_gamma_shape = [hidden_dim]
+  attr_kernel_q_param = helper.create_parameter(
+      attr=param_attrs_dict['AttrKernelQ'], shape=attr_kernel_shape, dtype=dtype, is_bias=False)
+  attr_kernel_k_param = helper.create_parameter(
+      attr=param_attrs_dict['AttrKernelK'], shape=attr_kernel_shape, dtype=dtype, is_bias=False)
+  attr_kernel_v_param = helper.create_parameter(
+      attr=param_attrs_dict['AttrKernelV'], shape=attr_kernel_shape, dtype=dtype, is_bias=False)
+  attr_bias_q_param = helper.create_parameter(
+      attr=param_attrs_dict['AttrBiasQ'], shape=attr_bias_shape, dtype=dtype, is_bias=False)
+  attr_bias_k_param = helper.create_parameter(
+      attr=param_attrs_dict['AttrBiasK'], shape=attr_bias_shape, dtype=dtype, is_bias=False)
+  attr_bias_v_param = helper.create_parameter(
+      attr=param_attrs_dict['AttrBiasV'], shape=attr_bias_shape, dtype=dtype, is_bias=False)
+  attr_output_kernel_param = helper.create_parameter(
+      attr=param_attrs_dict['AttrOutputKernel'], shape=attr_output_kernel_shape, dtype=dtype, is_bias=False)
+  attr_output_bias_param = helper.create_parameter(
+      attr=param_attrs_dict['AttrOutputBias'], shape=attr_output_bias_shape, dtype=dtype, is_bias=False)
+  attr_output_layernorm_beta_param = helper.create_parameter(
+      attr=param_attrs_dict['AttrOutputLayernormBeta'], shape=attr_output_layernorm_beta_shape, dtype=dtype, is_bias=False)
+  attr_output_layernorm_gamma_param = helper.create_parameter(
+      attr=param_attrs_dict['AttrOutputLayernormGamma'], shape=attr_output_layernorm_gamma_shape, dtype=dtype, is_bias=False)
+  inter_kernel_param = helper.create_parameter(
+      attr=param_attrs_dict['InterKernel'], shape=inter_kernel_shape, dtype=dtype, is_bias=False)
+  inter_bias_param = helper.create_parameter(
+      attr=param_attrs_dict['InterBias'], shape=inter_bias_shape, dtype=dtype, is_bias=False)
+  output_kernel_param = helper.create_parameter(
+      attr=param_attrs_dict['OutputKernel'], shape=output_kernel_shape, dtype=dtype, is_bias=False)
+  output_bias_param = helper.create_parameter(
+      attr=param_attrs_dict['OutputBias'], shape=output_bias_shape, dtype=dtype, is_bias=False)
+  output_layernorm_beta_param = helper.create_parameter(
+      attr=param_attrs_dict['OutputLayernormBeta'], shape=output_layernorm_beta_shape, dtype=dtype, is_bias=False)
+  output_layernorm_gamma_param = helper. create_parameter(
+      attr=param_attrs_dict['OutputLayernormGamma'], shape=output_layernorm_gamma_shape, dtype=dtype, is_bias=False)
+  output = helper.create_variable_for_type_inference(dtype=from_tensor.dtype)
+  helper.append_op(
+      type='transformer',
+      inputs={
+        'FromTensor': from_tensor,
+        'ToTensor': to_tensor,
+        'AttrMask': attr_mask,
+        'AttrKernelQ': attr_kernel_q_param,
+        'AttrKernelK': attr_kernel_k_param,
+        'AttrKernelV': attr_kernel_v_param,
+        'AttrBiasQ': attr_bias_q_param,
+        'AttrBiasK': attr_bias_k_param,
+        'AttrBiasV': attr_bias_v_param,
+        'AttrOutputKernel': attr_output_kernel_param,
+        'AttrOutputBias': attr_output_bias_param,
+        'AttrOutputLayernormBeta': attr_output_layernorm_beta_param,
+        'AttrOutputLayernormGamma': attr_output_layernorm_gamma_param,
+        'InterKernel': inter_kernel_param,
+        'InterBias': inter_bias_param,
+        'OutputKernel': output_kernel_param,
+        'OutputBias': output_bias_param,
+        'OutputLayernormBeta': output_layernorm_beta_param,
+        'OutputLayernormGamma': output_layernorm_gamma_param
+      },
+      outputs={
+        'Output': output
+      },
+      attrs={
+        'head_num': head_num,
+        'size_per_head': size_per_head,
+        'hidden_act': hidden_act
+      }
+  )
+  return output
 
-@deprecated(since="2.0.0", update_to="paddle.nn.functional.maxout")
 @templatedoc()
 def maxout(x, groups, name=None, axis=1):
     """

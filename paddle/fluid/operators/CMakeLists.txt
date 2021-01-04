@@ -50,6 +50,10 @@ if (WITH_GPU)
     endif()
 endif()
 
+if (WITH_GPU)
+    add_subdirectory(transformer)
+endif()
+
 SET(OP_PREFETCH_DEPS "")
 if (WITH_DISTRIBUTE)
     SET(OP_PREFETCH_DEPS ${OP_PREFETCH_DEPS} parameter_prefetch)
@@ -64,7 +68,7 @@ if(WITH_COVERAGE OR WIN32 OR WITH_NV_JETSON)
     SET(OP_MKL_DEPS ${OP_MKL_DEPS} pyramid_hash_op)
 endif()
 
-register_operators(EXCLUDES py_func_op warpctc_op dgc_op
+register_operators(EXCLUDES transformer_op py_func_op warpctc_op dgc_op
     sync_batch_norm_op ${OP_MKL_DEPS} DEPS ${OP_HEADER_DEPS} ${OP_PREFETCH_DEPS})
 
 if (WITH_GPU)
