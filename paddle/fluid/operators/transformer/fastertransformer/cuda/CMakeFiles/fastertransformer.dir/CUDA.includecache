@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/paddle/Paddle/paddle/fluid/operators/transformer/fastertransformer/cuda/cuda_kernels.cu
+cuda_kernels.h
+/home/paddle/Paddle/paddle/fluid/operators/transformer/fastertransformer/cuda/cuda_kernels.h
+assert.h
+-
+cstdio
+-
+cstdlib
+-
+
+/home/paddle/Paddle/paddle/fluid/operators/transformer/fastertransformer/cuda/cuda_kernels.h
+cuda_runtime.h
+-
+cuda_fp16.h
+-
+
+/home/paddle/Paddle/paddle/fluid/operators/transformer/fastertransformer/cuda/open_attention.cu
+paddle/fluid/operators/transformer/fastertransformer/allocator.h
+/home/paddle/Paddle/paddle/fluid/operators/transformer/fastertransformer/cuda/paddle/fluid/operators/transformer/fastertransformer/allocator.h
+paddle/fluid/operators/transformer/fastertransformer/cuda/multi_head_attention.h
+/home/paddle/Paddle/paddle/fluid/operators/transformer/fastertransformer/cuda/paddle/fluid/operators/transformer/fastertransformer/cuda/multi_head_attention.h
+paddle/fluid/operators/transformer/fastertransformer/cuda/open_attention.h
+/home/paddle/Paddle/paddle/fluid/operators/transformer/fastertransformer/cuda/paddle/fluid/operators/transformer/fastertransformer/cuda/open_attention.h
+cuda_runtime.h
+-
+cuda_fp16.h
+-
+cmath
+-
+

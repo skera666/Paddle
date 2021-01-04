@@ -1,0 +1,5 @@
+/home/paddle/DeepLearningExamples/FasterTransformer/v1/fastertransformer/CMakeFiles/rebuild_cache.dir
+/home/paddle/DeepLearningExamples/FasterTransformer/v1/fastertransformer/CMakeFiles/edit_cache.dir
+/home/paddle/DeepLearningExamples/FasterTransformer/v1/fastertransformer/cuda/CMakeFiles/edit_cache.dir
+/home/paddle/DeepLearningExamples/FasterTransformer/v1/fastertransformer/cuda/CMakeFiles/rebuild_cache.dir
+/home/paddle/DeepLearningExamples/FasterTransformer/v1/fastertransformer/cuda/CMakeFiles/fastertransformer.dir

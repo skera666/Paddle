@@ -1,0 +1,63 @@
+Performing C++ SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/paddle/Paddle/paddle/fluid/operators/transformer/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_ca27f/fast && /usr/bin/make -f CMakeFiles/cmTC_ca27f.dir/build.make CMakeFiles/cmTC_ca27f.dir/build
+make[1]: Entering directory '/home/paddle/Paddle/paddle/fluid/operators/transformer/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_ca27f.dir/src.cxx.o
+/usr/local/gcc-8.2/bin/c++    -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_ca27f.dir/src.cxx.o -c /home/paddle/Paddle/paddle/fluid/operators/transformer/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_ca27f
+/home/cmake-3.16.0-Linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ca27f.dir/link.txt --verbose=1
+/usr/local/gcc-8.2/bin/c++   -DCMAKE_HAVE_LIBC_PTHREAD    -rdynamic CMakeFiles/cmTC_ca27f.dir/src.cxx.o  -o cmTC_ca27f 
+CMakeFiles/cmTC_ca27f.dir/src.cxx.o: In function `main':
+src.cxx:(.text+0x2d): undefined reference to `pthread_create'
+src.cxx:(.text+0x39): undefined reference to `pthread_detach'
+src.cxx:(.text+0x4a): undefined reference to `pthread_join'
+src.cxx:(.text+0x5e): undefined reference to `pthread_atfork'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_ca27f.dir/build.make:86: recipe for target 'cmTC_ca27f' failed
+make[1]: *** [cmTC_ca27f] Error 1
+make[1]: Leaving directory '/home/paddle/Paddle/paddle/fluid/operators/transformer/CMakeFiles/CMakeTmp'
+Makefile:121: recipe for target 'cmTC_ca27f/fast' failed
+make: *** [cmTC_ca27f/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/paddle/Paddle/paddle/fluid/operators/transformer/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_189e4/fast && /usr/bin/make -f CMakeFiles/cmTC_189e4.dir/build.make CMakeFiles/cmTC_189e4.dir/build
+make[1]: Entering directory '/home/paddle/Paddle/paddle/fluid/operators/transformer/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_189e4.dir/CheckFunctionExists.cxx.o
+/usr/local/gcc-8.2/bin/c++    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_189e4.dir/CheckFunctionExists.cxx.o -c /home/paddle/Paddle/paddle/fluid/operators/transformer/CMakeFiles/CheckLibraryExists/CheckFunctionExists.cxx
+Linking CXX executable cmTC_189e4
+/home/cmake-3.16.0-Linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_189e4.dir/link.txt --verbose=1
+/usr/local/gcc-8.2/bin/c++   -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_189e4.dir/CheckFunctionExists.cxx.o  -o cmTC_189e4  -lpthreads 
+/usr/local/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_189e4.dir/build.make:86: recipe for target 'cmTC_189e4' failed
+make[1]: *** [cmTC_189e4] Error 1
+make[1]: Leaving directory '/home/paddle/Paddle/paddle/fluid/operators/transformer/CMakeFiles/CMakeTmp'
+Makefile:121: recipe for target 'cmTC_189e4/fast' failed
+make: *** [cmTC_189e4/fast] Error 2
+
+
+

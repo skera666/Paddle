@@ -1,0 +1,5 @@
+add_subdirectory(fastertransformer)
+if (WITH_GPU)
+    op_library(transformer_op DEPS ${OP_HEADER_DEPS} ${OP_PREFETCH_DEPS} fastertransformer)
+    file(APPEND ${pybind_file} "USE_CUDA_ONLY_OP(transformer);\n")
+endif()
