@@ -1,7 +1,0 @@
-/home/paddle/Paddle/paddle/fluid/operators/transformer/CMakeFiles/rebuild_cache.dir
-/home/paddle/Paddle/paddle/fluid/operators/transformer/CMakeFiles/edit_cache.dir
-/home/paddle/Paddle/paddle/fluid/operators/transformer/fastertransformer/CMakeFiles/rebuild_cache.dir
-/home/paddle/Paddle/paddle/fluid/operators/transformer/fastertransformer/CMakeFiles/edit_cache.dir
-/home/paddle/Paddle/paddle/fluid/operators/transformer/fastertransformer/cuda/CMakeFiles/edit_cache.dir
-/home/paddle/Paddle/paddle/fluid/operators/transformer/fastertransformer/cuda/CMakeFiles/rebuild_cache.dir
-/home/paddle/Paddle/paddle/fluid/operators/transformer/fastertransformer/cuda/CMakeFiles/fastertransformer.dir
